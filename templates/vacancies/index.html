@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="search-section">
+    <h1>Знайди роботу своєї мрії</h1>
+    <form method="GET" action="{% url 'vacancy_list' %}" class="search-form">
+        <input type="text" name="q" placeholder="Пошук за назвою або ключовими словами..." value="{{ search_query }}">
+        <button type="submit" class="btn btn-primary">Пошук</button>
+    </form>
+</section>
+
+<div class="vacancy-grid">
+    {% for vacancy in page_obj %}
+    <div class="card">
+        <div>
+            <h3 class="card-title">{{ vacancy.title }}</h3>
+            <p class="card-meta">{{ vacancy.company }} | {{ vacancy.location }}</p>
+            <p class="card-salary">
+                {% if vacancy.salary > 0 %}{{ vacancy.salary }} грн.{% else %}Зарплата не вказана{% endif %}
+            </p>
+            <p>{{ vacancy.description|truncatewords:20 }}</p>
+        </div>
+        <div style="margin-top: 20px;">
+            <a href="{% url 'vacancy_detail' vacancy.pk %}" class="btn btn-secondary" style="width: 100%; text-align: center;">Детальніше</a>
+        </div>
+    </div>
+    {% empty %}
+    <p style="grid-column: 1/-1; text-align: center; color: #6b7280;">Вакансій не знайдено.</p>
+    {% endfor %}
+</div>
+
+{% if page_obj.has_other_pages %}
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?q={{ search_query }}&page={{ page_obj.previous_page_number }}" class="btn btn-secondary">&laquo; Назад</a>
+    {% endif %}
+    
+    <span>Сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}</span>
+    
+    {% if page_obj.has_next %}
+        <a href="?q={{ search_query }}&page={{ page_obj.next_page_number }}" class="btn btn-secondary">Вперед &raquo;</a>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="detail-container">
+    <div class="detail-header">
+        <h1>{{ vacancy.title }}</h1>
+        <p class="card-meta" style="font-size: 16px; margin-top: 10px;">
+            <strong>Компанія:</strong> {{ vacancy.company }} | <strong>Локація:</strong> {{ vacancy.location }}
+        </p>
+        <p class="card-salary" style="font-size: 22px; margin-top: 10px;">
+            {% if vacancy.salary > 0 %}{{ vacancy.salary }} грн.{% else %}Зарплата за результатами співбесіди{% endif %}
+        </p>
+    </div>
+
+    <div class="detail-body">
+        <h3>Опис вакансії:</h3>
+        <p style="white-space: pre-line; margin-top: 10px; margin-bottom: 30px;">{{ vacancy.description }}</p>
+        
+        {% if vacancy.source_url %}
+            <p><a href="{{ vacancy.source_url }}" target="_blank" class="nav-link" style="color: var(--primary-color); margin: 0; display: inline-block; margin-bottom: 30px;">Переглянути оригінал вакансії</a></p>
+        {% endif %}
+    </div>
+
+    <div class="form-actions" style="border-top: 1px solid var(--border-color); padding-top: 20px;">
+        <a href="{% url 'vacancy_update' vacancy.pk %}" class="btn btn-secondary">Редагувати</a>
+        <a href="{% url 'vacancy_delete' vacancy.pk %}" class="btn btn-danger">Видалити</a>
+        <a href="{% url 'vacancy_list' %}" class="btn btn-secondary" style="margin-left: auto;">Назад до списку</a>
+    </div>
+</div>
+{% endblock %}

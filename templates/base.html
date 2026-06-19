@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Сайт пошуку вакансій</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="{% url 'vacancy_list' %}" class="logo">JobFinder</a>
+            <nav>
+                <a href="{% url 'parse_jooble' %}" class="btn btn-secondary" style="margin-right: 10px;">🔄 Оновити з Jooble</a>
+                <a href="{% url 'vacancy_create' %}" class="btn btn-primary"> + Додати вакансію</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 JobFinder.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container" style="text-align: center;">
+    <h2>Видалення вакансії</h2>
+    <p>Ви впевнені, що хочете видалити вакансію <strong>"{{ object.title }}"</strong>?</p>
+    
+    <form method="POST" style="margin-top: 20px;">
+        {% csrf_token %}
+        <div class="form-actions" style="justify-content: center;">
+            <button type="submit" class="btn btn-danger">Так, видалити</button>
+            <a href="{% url 'vacancy_detail' object.pk %}" class="btn btn-secondary">Скасувати</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

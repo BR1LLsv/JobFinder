@@ -1,0 +1,8 @@
+from django.db import models
+from django import forms
+from .models import Vacancy
+
+class VacancyForm(forms.ModelForm):
+    class Meta:
+        model = Vacancy
+        fields = ['title', 'company', 'location', 'salary', 'description', 'source_url']
